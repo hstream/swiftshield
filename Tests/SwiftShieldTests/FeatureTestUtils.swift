@@ -54,7 +54,7 @@ func baseTestData(ignorePublic: Bool = false,
         sourceKit: sourceKit,
         logger: logger,
         dataStore: dataStore,
-        namesToIgnore: namesToIgnore,
+        namesToIgnore: namesToIgnore, inputFiles: [],
         ignorePublic: ignorePublic
     )
     let delegateSpy = ObfuscatorDelegateSpy()

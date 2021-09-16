@@ -6,13 +6,15 @@ final class SourceKitObfuscator: ObfuscatorProtocol {
     let dataStore: SourceKitObfuscatorDataStore
     let ignorePublic: Bool
     let namesToIgnore: Set<String>
+    let inputFiles: Set<String>
     weak var delegate: ObfuscatorDelegate?
 
-    init(sourceKit: SourceKit, logger: LoggerProtocol, dataStore: SourceKitObfuscatorDataStore, namesToIgnore: Set<String>, ignorePublic: Bool) {
+    init(sourceKit: SourceKit, logger: LoggerProtocol, dataStore: SourceKitObfuscatorDataStore, namesToIgnore: Set<String>, inputFiles: Set<String>, ignorePublic: Bool) {
         self.sourceKit = sourceKit
         self.logger = logger
         self.dataStore = dataStore
         self.ignorePublic = ignorePublic
+        self.inputFiles = inputFiles
         self.namesToIgnore = namesToIgnore
     }
 
@@ -71,6 +73,9 @@ extension SourceKitObfuscator {
         ofFile file: File,
         fromModule module: Module
     ) throws {
+        guard inputFiles.isEmpty || inputFiles.contains(file.name) else {
+            return
+        }
         let entityKind: SKUID = dict[keys.kind]!
         guard let kind = entityKind.declarationType() else {
             return
