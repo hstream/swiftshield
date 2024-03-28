@@ -37,6 +37,9 @@ extension Swiftshield {
 
         @Flag(help: "Prints SourceKit queries. Note that they are huge, so use this only for bug reports and development!")
         var printSourcekit: Bool
+        
+        @Option(name: .shortAndLong, help: "Obfuscate only the module defined as targetedModule")
+        var targetedModule: String?
 
         func run() throws {
             let modulesToIgnore = Set((ignoreTargets ?? "").components(separatedBy: ","))
@@ -50,7 +53,8 @@ extension Swiftshield {
                 ignorePublic: ignorePublic,
                 dryRun: dryRun,
                 verbose: verbose,
-                printSourceKitQueries: printSourcekit
+                printSourceKitQueries: printSourcekit,
+                targetedModuleForObfuscation: targetedModule
             )
             try runner.run()
         }

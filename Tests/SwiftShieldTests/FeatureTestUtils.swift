@@ -36,7 +36,8 @@ func testModule(
         schemeName: "FeatureTestProject",
         taskRunner: TaskRunner(),
         logger: DummyLogger(),
-        modulesToIgnore: []
+        modulesToIgnore: [],
+        targetedModuleForObfuscation: nil
     )
 
     try File(path: modifiableFilePath).write(contents: contents)

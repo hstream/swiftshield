@@ -6,6 +6,7 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
     let taskRunner: TaskRunnerProtocol
     let logger: LoggerProtocol
     let modulesToIgnore: Set<String>
+    let targetedModuleForObfuscation: String?
 
     var isWorkspace: Bool {
         projectFile.path.hasSuffix(".xcworkspace")
@@ -48,11 +49,16 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
                 try parsePlistPhase(line: line + lines[index + 1], modules: &modules)
             }
         }
-        return modules.filter { modulesToIgnore.contains($0.key) == false }.sorted { $0.value.order < $1.value.order }.map {
-            Module(name: $0.key,
+        return modules
+            .filter { targetedModuleForObfuscation != nil ? $0.key == targetedModuleForObfuscation : true}
+            .filter { modulesToIgnore.contains($0.key) == false }
+            .sorted { $0.value.order < $1.value.order }
+            .map {
+                Module(name: $0.key,
                    sourceFiles: Set($0.value.source),
                    plists: Set($0.value.plists.removeDuplicates()),
-                   compilerArguments: $0.value.args)
+                   compilerArguments: $0.value.args
+                )
         }
     }
 
