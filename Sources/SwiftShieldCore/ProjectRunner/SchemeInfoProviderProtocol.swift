@@ -11,7 +11,7 @@ protocol SchemeInfoProviderProtocol {
     /// The modules to ignore.
     var modulesToIgnore: Set<String> { get }
     
-    var targetedModuleForObfuscation: String? { get }
+    var targetedModulesForObfuscation: Set<String>? { get }
 
     /// Retrieves .pbxproj targets from the relevant Xcode project by building it.
     func getModulesFromProject() throws -> [Module]

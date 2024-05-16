@@ -39,12 +39,13 @@ extension Swiftshield {
         var printSourcekit: Bool
         
         @Option(name: .shortAndLong, help: "Obfuscate only the module defined as targetedModule")
-        var targetedModule: String?
+        var targetedModules: String?
 
         func run() throws {
             let modulesToIgnore = Set((ignoreTargets ?? "").components(separatedBy: ","))
             let namesToIgnore = Set((ignoreNames ?? "").components(separatedBy: ","))
             let inputFiles = Set((inputFiles ?? "").components(separatedBy: ","))
+            let modules = Set((targetedModules ?? "").components(separatedBy: ","))
             let runner = SwiftSwiftAssembler.generate(
                 projectPath: projectFile, scheme: scheme,
                 modulesToIgnore: modulesToIgnore,
@@ -54,7 +55,7 @@ extension Swiftshield {
                 dryRun: dryRun,
                 verbose: verbose,
                 printSourceKitQueries: printSourcekit,
-                targetedModuleForObfuscation: targetedModule
+                targetedModulesForObfuscation: modules
             )
             try runner.run()
         }

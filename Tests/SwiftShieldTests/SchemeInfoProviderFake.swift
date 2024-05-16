@@ -2,7 +2,7 @@
 import XCTest
 
 final class SchemeInfoProviderFake: SchemeInfoProviderProtocol {
-    var targetedModuleForObfuscation: String?
+    var targetedModulesForObfuscation: Set<String>?
     
     var projectFile: File = File(path: "fakePath/path.xcodeproj")
 

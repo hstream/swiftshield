@@ -6,7 +6,7 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
     let taskRunner: TaskRunnerProtocol
     let logger: LoggerProtocol
     let modulesToIgnore: Set<String>
-    let targetedModuleForObfuscation: String?
+    let targetedModulesForObfuscation: Set<String>?
 
     var isWorkspace: Bool {
         projectFile.path.hasSuffix(".xcworkspace")
@@ -50,7 +50,7 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
             }
         }
         return modules
-            .filter { targetedModuleForObfuscation != nil ? $0.key == targetedModuleForObfuscation : true}
+            .filter { targetedModulesForObfuscation != nil ? targetedModulesForObfuscation?.contains($0.key) == true : true }
             .filter { modulesToIgnore.contains($0.key) == false }
             .sorted { $0.value.order < $1.value.order }
             .map {

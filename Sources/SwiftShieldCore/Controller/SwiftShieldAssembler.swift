@@ -11,7 +11,7 @@ public enum SwiftSwiftAssembler {
         dryRun: Bool,
         verbose: Bool,
         printSourceKitQueries: Bool,
-        targetedModuleForObfuscation: String?
+        targetedModulesForObfuscation: Set<String>?
     ) -> SwiftShieldController {
         let logger = Logger(
             verbose: verbose,
@@ -26,7 +26,7 @@ public enum SwiftSwiftAssembler {
             taskRunner: taskRunner,
             logger: logger,
             modulesToIgnore: modulesToIgnore,
-            targetedModuleForObfuscation: targetedModuleForObfuscation
+            targetedModulesForObfuscation: targetedModulesForObfuscation
         )
 
         let sourceKit = SourceKit(logger: logger)

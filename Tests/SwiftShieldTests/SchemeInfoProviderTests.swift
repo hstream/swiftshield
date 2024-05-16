@@ -12,7 +12,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: runnerFake,
             logger: logger,
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         _ = try? provider.getModulesFromProject()
@@ -40,7 +40,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: runnerFake,
             logger: logger,
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         _ = try? provider.getModulesFromProject()
@@ -68,7 +68,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: runnerFake,
             logger: logger,
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         runnerFake.mockOutput = nil
@@ -86,7 +86,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: runnerFake,
             logger: logger,
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         runnerFake.shouldFail = true
@@ -105,7 +105,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: runnerFake,
             logger: logger,
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         runnerFake.mockOutput = "Output"
@@ -148,7 +148,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: TaskRunner(),
             logger: DummyLogger(),
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
         let modules = try provider.getModulesFromProject()
         XCTAssertEqual(modules.map { $0.withoutCompilerArgs }, [anotherTargetModule, exampleProjectModule])
@@ -163,7 +163,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: TaskRunner(),
             logger: DummyLogger(),
             modulesToIgnore: ["AnotherTarget"],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
         let modules = try provider.getModulesFromProject()
         XCTAssertEqual(modules.map { $0.withoutCompilerArgs }, [exampleProjectModule])
@@ -189,7 +189,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: TaskRunner(),
             logger: DummyLogger(),
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         let result = try provider.markProjectsAsObfuscated()
@@ -242,7 +242,7 @@ final class SchemeInfoProviderTests: XCTestCase {
             taskRunner: TaskRunner(),
             logger: DummyLogger(),
             modulesToIgnore: [],
-            targetedModuleForObfuscation: nil
+            targetedModulesForObfuscation: nil
         )
 
         let project = Project(xcodeProjFile: File(path: projTemp))
