@@ -38,7 +38,7 @@ extension Swiftshield {
         @Flag(help: "Prints SourceKit queries. Note that they are huge, so use this only for bug reports and development!")
         var printSourcekit: Bool
         
-        @Option(name: .shortAndLong, help: "Obfuscate only the module defined as targetedModule")
+        @Option(name: .shortAndLong, help: "Obfuscate only the modules defined as targetedModules")
         var targetedModules: String?
 
         func run() throws {

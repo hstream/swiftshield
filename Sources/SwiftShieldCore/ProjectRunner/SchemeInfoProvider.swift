@@ -49,7 +49,7 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
                 try parsePlistPhase(line: line + lines[index + 1], modules: &modules)
             }
         }
-        return modules
+        let modulesToObfuscate = modules
             .filter { targetedModulesForObfuscation != nil ? targetedModulesForObfuscation?.contains($0.key) == true : true }
             .filter { modulesToIgnore.contains($0.key) == false }
             .sorted { $0.value.order < $1.value.order }
@@ -60,6 +60,13 @@ struct SchemeInfoProvider: SchemeInfoProviderProtocol {
                    compilerArguments: $0.value.args
                 )
         }
+        
+        logger.log("Attention! Only the modules listed below will be obfuscated.")
+        modulesToObfuscate.forEach { module in
+            logger.log("Obfuscation action will be performed on module with name: \(module.name)")
+        }
+        
+        return modulesToObfuscate
     }
 
     private func parseMergeSwiftModulePhase(line: String, moduleName: String, modules: inout MutableModuleDictionary) throws {
